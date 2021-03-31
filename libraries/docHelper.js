@@ -1,5 +1,7 @@
-var fs = require('fs');
-var path = require('path');
+const fs = require('fs');
+const path = require('path');
+const pdf = require("./pdf");
+const coincidences = require("./coincidences");
 
 const docHelper = {
   clean: function (data) {
@@ -39,6 +41,26 @@ const docHelper = {
         })
       })()
     })
+  },
+  countWords: function (files, filename) {
+    var results = [];
+    var i = 0
+    function readFile(){
+      fs.readFile(files[i], 'utf8', function(err, data) {
+        if (err) throw err;
+        console.log('Leyendo: ' + files[i]);
+        data = docHelper.clean(data);
+        results = coincidences.get(data, results);
+        i += 1
+        if(i<files.length){
+          readFile()
+        }else{
+          results = coincidences.sort(results)
+          pdf.create(results, filename);
+        }
+      });
+    }
+    readFile()
   }
 }
 

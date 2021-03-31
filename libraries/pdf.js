@@ -1,8 +1,7 @@
 const exportPdf = {
   create: function (data, filename) {
     var html_to_pdf = require('html-pdf-node');
-    var name = filename.replace(/\//g,'-');
-    let options = { format: 'A4', path: './documents/'+name+'.pdf' };
+    let options = { format: 'A4', path: filename };
     // Example of options with args //
     // let options = { format: 'A4', args: ['--no-sandbox', '--disable-setuid-sandbox'] };
 

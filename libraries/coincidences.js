@@ -9,6 +9,9 @@ const coincidences = {
         }
       }
     }
+    return coincidences
+  },
+  sort: function (coincidences) {
     var sortable = [];
     for (var word in coincidences) {
         sortable.push([word, coincidences[word]]);

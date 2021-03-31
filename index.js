@@ -1,6 +1,6 @@
-const coincidences = require("./libraries/coincidences");
+
 const docHelper = require("./libraries/docHelper");
-const pdf = require("./libraries/pdf");
+
 
 // Make sure we got a filename on the command line.
 if (process.argv.length < 3) {
@@ -10,19 +10,25 @@ if (process.argv.length < 3) {
 
 results = [];
 
-docHelper.search('./documents/testCarpeta', function(err, results) {
-  if (err) throw err;
-  console.log(results);
-});
+var files = []
+var filename = process.argv[2];
+var isFolder = true
+if(filename.includes('.txt')){
+  isFolder = false
+  files.push(filename)
+}
+
+if(isFolder){
+  docHelper.search(filename, function(err, files) {
+    if (err) throw err
+    var words = filename.split('/')
+    var lastWord = words[words.length - 1]
+    filename += '/'+lastWord+'.pdf'
+    docHelper.countWords(files, filename)
+  })
+}else{
+  filename = filename.replace('.txt','.pdf')
+  docHelper.countWords(files, filename)
+}
 
 // Read the file and print its contents.
-var fs = require('fs')
-  , filename = process.argv[2];
-fs.readFile(filename, 'utf8', function(err, data) {
-  if (err) throw err;
-  console.log('Leyendo: ' + filename);
-  data = docHelper.clean(data);
-  results = coincidences.get(data, results);
-
-  pdf.create(results, filename);
-});
