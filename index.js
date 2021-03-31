@@ -1,3 +1,4 @@
+const coincidences = require("./library/coincidences");
 // Make sure we got a filename on the command line.
 if (process.argv.length < 3) {
   console.log('Usage: node ' + process.argv[1] + ' FILENAME');
@@ -19,23 +20,9 @@ fs.readFile(filename, 'utf8', function(err, data) {
   var data = array.filter(function (el) {
       return el != null;
   });
-  var coincidences = [];
-  for(var i=0;i<data.length;i++){
-    if(data[i] != '' && typeof data[i] == "string" && data[i].match("[a-zA-Z]+")){
-      if(!(data[i] in coincidences)){
-        coincidences[data[i]] = 1;
-      }else{
-        coincidences[data[i]] += 1;
-      }
-    }
-  }
-  var sortable = [];
-  for (var word in coincidences) {
-      sortable.push([word, coincidences[word]]);
-  }
-  sortable.sort(function(a, b) {
-      return b[1] - a[1];
-  });
+
+  sortable = coincidences.get(data);
+
   console.log(sortable);
   console.log('Palabras usadas: '+sortable.length);
 });
