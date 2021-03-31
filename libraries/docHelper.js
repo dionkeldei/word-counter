@@ -48,7 +48,7 @@ const docHelper = {
     function readFile(){
       fs.readFile(files[i], 'utf8', function(err, data) {
         if (err) throw err;
-        console.log('Leyendo: ' + files[i]);
+        console.log('\x1b[33m%s\x1b[0m',' Leyendo: ' + files[i].split('/')[files[i].split('/').length -1]);
         data = docHelper.clean(data);
         results = coincidences.get(data, results);
         i += 1

@@ -20,6 +20,11 @@ if(isFolder){
     var words = filename.split('/')
     var lastWord = words[words.length - 1]
     filename += '/'+lastWord+'.pdf'
+    for(var i=0;i<files.length;i++){
+      if(!files[i].includes('.txt')){
+        delete files.splice(i, 1);
+      }
+    }
     docHelper.countWords(files, filename)
   })
 }else{
