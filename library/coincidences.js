@@ -1,4 +1,4 @@
-coincidences = {
+const coincidences = {
   get: function (data, coincidences = []) {
     for(var i=0;i<data.length;i++){
       if(data[i] != '' && typeof data[i] == "string" && data[i].match("[a-zA-Z]+")){
