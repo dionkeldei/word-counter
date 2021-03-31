@@ -25,7 +25,7 @@ const exportPdf = {
     let file = { content: content };
 
     html_to_pdf.generatePdf(file, options).then(pdfBuffer => {
-      console.log("Pdf Creado!!");
+      console.log('\x1b[32m%s\x1b[0m', "\n Pdf Creado!!\n");
     });
   }
 }
