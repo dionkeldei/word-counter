@@ -1,5 +1,6 @@
-const coincidences = require("./library/coincidences");
-const docHelper = require("./library/docHelper");
+const coincidences = require("./libraries/coincidences");
+const docHelper = require("./libraries/docHelper");
+const pdf = require("./libraries/pdf");
 
 // Make sure we got a filename on the command line.
 if (process.argv.length < 3) {
@@ -17,6 +18,6 @@ fs.readFile(filename, 'utf8', function(err, data) {
   console.log('Leyendo: ' + filename);
   data = docHelper.clean(data);
   results = coincidences.get(data, results);
-  console.log(results);
-  console.log('Palabras usadas: '+results.length);
+
+  pdf.create(results, filename);
 });
