@@ -8,6 +8,7 @@ if (process.argv.length < 3) {
 }
 
 results = [];
+
 // Read the file and print its contents.
 var fs = require('fs')
   , filename = process.argv[2];
