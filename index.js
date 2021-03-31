@@ -10,6 +10,11 @@ if (process.argv.length < 3) {
 
 results = [];
 
+docHelper.search('./documents/testCarpeta', function(err, results) {
+  if (err) throw err;
+  console.log(results);
+});
+
 // Read the file and print its contents.
 var fs = require('fs')
   , filename = process.argv[2];
